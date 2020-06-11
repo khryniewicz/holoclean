@@ -1,0 +1,19 @@
+version: '3'
+services:
+
+  jupyter:
+    build: .
+    entrypoint: jupyter lab --ip=0.0.0.0 --port=8888 --allow-root --no-browser
+    network_mode: host
+    volumes:
+      - .:/hct
+      - ~/.jupyter:/root/.jupyter
+    working_dir: /hct
+
+  postgres:
+    environment:
+      - POSTGRES_DB=holo
+      - POSTGRES_USER=holocleanuser
+      - POSTGRES_PASSWORD=abcd1234
+    image: postgres:11
+    network_mode: host
